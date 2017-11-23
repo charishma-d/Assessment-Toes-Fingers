@@ -19,7 +19,11 @@ var fingers=document.getElementById('fingers'),
 start.addEventListener("click",startFunction);
 restart.addEventListener("click",restartFunction);
 reset.addEventListener("click",resetFunction);
-
+input.addEventListener("keypress",function(e){	//Adding functionality of ENTER key 
+			if(e.keycode===13||event.which===13){
+			startFunction();
+			}
+		});
 function startFunction(){
 	clearAll();
 	var highest=input.value;
@@ -36,15 +40,15 @@ function startFunction(){
 	    }
 		else if(count%3===0){
 			counter.value=count;
-			toes.classList.add("styleclass");
+			fingers.classList.add("styleclass");
 		}
 		else if(count%5===0){
 			counter.value=count;
-			fingers.classList.add("styleclass");
+			toes.classList.add("styleclass");
 		}
 		counter.value=count;
 	if(count===highest)
-			clearInterval(Interval);
+	clearInterval(Interval);
 	}
 },1000)};
 
