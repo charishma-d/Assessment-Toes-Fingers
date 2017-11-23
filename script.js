@@ -7,6 +7,7 @@ console.log("Running....");
 //restart():input=0 highlight=null
 var i=0;
 var count=0,Interval;
+//getting the elements
 var fingers=document.getElementById('fingers'),
 	toes=document.getElementById('toes'),
 	reset=document.getElementById('reset'),
@@ -15,38 +16,60 @@ var fingers=document.getElementById('fingers'),
 	counter=document.getElementById('counter'),
 	start=document.getElementById('start');
 
-//function for timer
-start.addEventListener("click",startFunction);
+//check if input is number or invalid data
+function inputCheck(){
+	if(isNaN(input.value)){return false;}
+	else return true;
+}
+//adding eventlisteners
+start.addEventListener("click",function(){
+	if(inputCheck()){
+		startFunction();
+	}
+	else 
+		alert("Enter a numeric value");
+});
+
 restart.addEventListener("click",restartFunction);
+
 reset.addEventListener("click",resetFunction);
-input.addEventListener("keypress",function(e){	//Adding functionality of ENTER key 
+
+//Adding functionality of ENTER key 
+input.addEventListener("keypress",function(e){	
 			if(e.keycode===13||event.which===13){
+			if(inputCheck()){
 			startFunction();
 			}
+			else alert("Enter a numeric value");
+		}
+		
 		});
+
+//Defining functions
 function startFunction(){
 	clearAll();
+	count=0;
 	var highest=input.value;
-    Interval=setInterval(function(){//setting timer
+	Interval=setInterval(function(){//setting timer
 	count++;
 	fingers.classList.remove("styleclass");//remove style for both 
 	toes.classList.remove("styleclass");
 	//code here will be checked for every second
 	if(count<=highest){
 		if(count%3===0 && count%5===0){
-			counter.value=count;
+			counter.textContent=count;
 			fingers.classList.add("styleclass");//style class on
 			toes.classList.add("styleclass");//styleclass on
 	    }
 		else if(count%3===0){
-			counter.value=count;
+			counter.textContent=count;
 			fingers.classList.add("styleclass");
 		}
 		else if(count%5===0){
-			counter.value=count;
+			counter.textContent=count;
 			toes.classList.add("styleclass");
 		}
-		counter.value=count;
+		counter.textContent=count;
 	if(count===highest)
 	clearInterval(Interval);
 	}
@@ -55,7 +78,7 @@ function startFunction(){
 function resetFunction(){
 	clearAll();
 	input.value=0;
-	counter.value=0;
+	counter.textContent=0;
 	fingers.classList.remove("styleclass");//remove style for both 
 	toes.classList.remove("styleclass");
 };
@@ -65,6 +88,7 @@ count=0;
 startFunction();
 };
 
+//clearing all the pointer references of the setInterval()
 function clearAll(){
 	for(var i=1;i<99999;i++){
 		clearInterval(i);
